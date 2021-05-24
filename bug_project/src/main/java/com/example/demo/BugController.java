@@ -4,8 +4,11 @@ package com.example.demo;
 
 import java.util.ArrayList;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jms.core.JmsTemplate;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,8 +19,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import io.swagger.annotations.ApiOperation;
 
 
+@CrossOrigin
 @RestController
 public class BugController {
 
@@ -28,8 +33,8 @@ public class BugController {
 	private JmsTemplate template;
 
 @PostMapping("/bug")
-
-public String addBug(@RequestBody Bug b)
+@ApiOperation(consumes = "application/json", value = "create Bug")
+public String addBug(@Valid @RequestBody Bug b)
 {
 	template.convertAndSend("bug_queue", b);
 		repo.save(b);

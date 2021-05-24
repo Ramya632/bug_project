@@ -5,6 +5,8 @@ import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -16,18 +18,21 @@ public class Bug implements Serializable{
 	private static final long serialVersionUID = 1L;
 @Id
 private int id;
+@NotNull
+@NotBlank(message="Email cannot be null")
 	private String email;
 	private String owner;
+	@NotNull
 	private int priority;
-	private String status;
+	private STATUS status;
 	@JsonFormat
     (shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
-	private Date createdDate;
+	private Date createdDate=new Date();
 	@JsonFormat
     (shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
 	private Date completeDate;
 	private String description;
-	private String attachedfiles;
+	private boolean attachedfiles;
 	
 	public int getId() {
 	return id;
@@ -54,12 +59,7 @@ public void setId(int id) {
 	public void setPriority(int priority) {
 		this.priority = priority;
 	}
-	public String getStatus() {
-		return status;
-	}
-	public void setStatus(String status) {
-		this.status = status;
-	}
+	
 	 
 	public Date getCreatedDate() {
 		return createdDate;
@@ -79,11 +79,17 @@ public void setId(int id) {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	public String getAttachedfiles() {
+	public boolean getAttachedfiles() {
 		return attachedfiles;
 	}
-	public void setAttachedfiles(String attachedfiles) {
+	public void setAttachedfiles(boolean attachedfiles) {
 		this.attachedfiles = attachedfiles;
+	}
+	public STATUS getStatus() {
+		return status;
+	}
+	public void setStatus(STATUS status) {
+		this.status = status;
 	}
 	
 
