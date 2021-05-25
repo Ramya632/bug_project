@@ -4,7 +4,10 @@ import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
@@ -18,6 +21,22 @@ public class Bug implements Serializable{
 	private static final long serialVersionUID = 1L;
 @Id
 private int id;
+private int p_id;
+public int getP_id() {
+	return p_id;
+}
+public void setP_id(int p_id) {
+	this.p_id = p_id;
+}
+public Project getProject() {
+	return project;
+}
+public void setProject(Project project) {
+	this.project = project;
+}
+public static long getSerialversionuid() {
+	return serialVersionUID;
+}
 @NotNull
 @NotBlank(message="Email cannot be null")
 	private String email;
@@ -33,14 +52,20 @@ private int id;
 	private Date completeDate;
 	private String description;
 	private boolean attachedfiles;
+	@ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @JoinColumn(name = "Project_id", referencedColumnName = "id")
+    private Project project;
+    
+	
+	
+
 	
 	public int getId() {
-	return id;
-}
-public void setId(int id) {
-	this.id = id;
-}
-	
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
 	public String getEmail() {
 		return email;
 	}

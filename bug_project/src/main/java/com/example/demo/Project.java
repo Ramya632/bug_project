@@ -1,11 +1,16 @@
 package com.example.demo;
 
 import java.io.Serializable;
+import java.util.List;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 import org.springframework.stereotype.Component;
 
@@ -17,9 +22,14 @@ public class Project implements Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 	@Id
+	@Column(name = "id")
 	private Long id;
+	
+
 	private String name;
 	private String description;
+	@OneToMany(mappedBy = "project", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private List<Bug> bug;
 	@Enumerated(EnumType.STRING)
 	private STATUS status;
 	public Long getId() {
@@ -51,4 +61,5 @@ public class Project implements Serializable{
 		return status.toString();
 
 }
+	
 }
