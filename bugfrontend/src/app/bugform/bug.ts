@@ -4,9 +4,5 @@ export default class Bug{
     email:String='';
     id:String='';
     status:String='';
-   
-
-
-    
-} 
+    } 
 
